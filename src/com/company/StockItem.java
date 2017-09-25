@@ -76,4 +76,8 @@ public class StockItem implements Comparable {
     public String toString() {
         return this.name + " " + this.price;
     }
+
+    public int getQuantityInStock() {
+        return quantityStock;
+    }
 }
