@@ -46,7 +46,7 @@ public class StockList {
     }
 
     public Map<String, StockItem> getItems(){
-        return Collections.unmodifiableMap(list);
+        return Collections.unmodifiableMap(list); // returns a readonly view of the list
     }
 
     @Override
