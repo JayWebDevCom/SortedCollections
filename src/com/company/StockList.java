@@ -52,14 +52,19 @@ public class StockList {
     @Override
     public String toString() {
         String string = "\nStocklist:\n";
+        double totalCost = 0.0;
+
         for (Map.Entry<String, StockItem> entry : list.entrySet()) {
             StockItem item = entry.getValue();
             int quantity = item.getQuantityInStock();
             double price = item.getPrice();
             double value = quantity * price;
+            totalCost += value;
             string += " name: " + item.getName() + " price: " + price + " quantity in stock: "
                     + quantity + " value of stock: " + value;
         }
+
+        string += "\n" + "All stock value: " + totalCost;
         return string;
     }
 }
