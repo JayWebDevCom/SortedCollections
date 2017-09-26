@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Map;
+
 public class Main {
 
     private static StockList stockList = new StockList();
@@ -73,6 +75,17 @@ public class Main {
         System.out.println(basket);
 
         System.out.println(stockList);
+
+        // temp = new StockItem("pen", 0.12);
+        // stockList.getItems().put(temp.getName(), temp);
+        // will give UnSupportedOperation Exception because getItems() returns an unmodifiable map
+        // objects contained can be modified but the list cannot
+
+        System.out.println("Price List is...");
+        for (Map.Entry<String, Double> entry : stockList.priceList().entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+
 
     }
 

@@ -48,6 +48,16 @@ public class StockList {
         return Collections.unmodifiableMap(list); // returns a readonly view of the list
     }
 
+    public Map<String, Double> priceList(){
+        Map<String, Double> priceList = new LinkedHashMap<>();
+
+        for (Map.Entry<String, StockItem> entry : list.entrySet() ){
+            priceList.put(entry.getKey(), entry.getValue().getPrice());
+        }
+
+        return Collections.unmodifiableMap(priceList);
+    }
+
     @Override
     public String toString() {
         String string = "\nStocklist:\n";
