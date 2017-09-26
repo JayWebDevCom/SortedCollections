@@ -80,4 +80,30 @@ public class StockItem implements Comparable {
     public int getQuantityInStock() {
         return quantityStock;
     }
+
+    public static class StaticClass {
+        String name;
+
+        public StaticClass(String name) {
+            this.name = name;
+        }
+    }
+
+    public class InnerClass {
+        String name;
+
+        public InnerClass(String name) {
+            this.name = name;
+        }
+    }
+
+    public InnerClass createInner(String name){
+        return new InnerClass(name);
+    }
+
+    public static StaticClass createStatic(String name){
+        return new StaticClass(name);
+    }
+
+
 }

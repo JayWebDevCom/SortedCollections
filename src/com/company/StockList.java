@@ -2,15 +2,14 @@ package com.company;
 
 import com.sun.istack.internal.NotNull;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class StockList {
     private final Map<String, StockItem> list;
 
     public StockList(){
-        this.list = new HashMap<>();
+//        this.list = new HashMap<>(); // has no order
+        this.list = new LinkedHashMap<>(); // has order maintained as items are entered
     }
 
     public int addStock(@NotNull StockItem item){
@@ -60,11 +59,11 @@ public class StockList {
             double price = item.getPrice();
             double value = quantity * price;
             totalCost += value;
-            string += " name: " + item.getName() + " price: " + price + " quantity in stock: "
-                    + quantity + " value of stock: " + value;
+            string += "Name: " + item.getName() + " price: " + String.format("%.2f", price) + " quantity in stock: "
+                    + quantity + " value of stock: " + String.format("%.2f", value) + "\n";
         }
 
-        string += "\n" + "All stock value: " + totalCost;
+        string += "\n" + "All stock value: " + String.format("%.2f", totalCost);
         return string;
     }
 }
