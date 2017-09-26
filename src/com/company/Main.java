@@ -1,5 +1,7 @@
 package com.company;
 
+import com.sun.istack.internal.NotNull;
+
 public class Main {
 
     private static StockList stockList = new StockList();
@@ -20,6 +22,8 @@ public class Main {
 
         temp = new StockItem("cup", 0.50, 200);
         stockList.addStock(temp);
+        temp = new StockItem("cup", 0.55, 50);
+        stockList.addStock(temp); // now have 250 cups of price 0.55 each
 
         temp = new StockItem("door", 72.95, 4);
         stockList.addStock(temp);
@@ -46,11 +50,45 @@ public class Main {
         System.out.println(stockList);
         System.out.println();
 
+        //
         for (String s : stockList.getItems().keySet()){
             System.out.println(s);
         }
 
+        Basket basket = new Basket("Customer Basket");
+        sellItem(basket, "car", 1);
+        System.out.println(basket);
+        sellItem(basket, "car", 1);
+        System.out.println(basket);
+        sellItem(basket, "car", 1);
+        System.out.println(basket);
+        sellItem(basket, "non-existant", 1);
+        System.out.println(basket);
+        sellItem(basket, "juice", 4);
+        System.out.println(basket);
+        sellItem(basket, "cup", 12);
+        System.out.println(basket);
+        sellItem(basket, "bread", 1);
+        System.out.println(basket);
 
+        System.out.println(stockList);
+
+    }
+
+    public static int sellItem(Basket basket, String itemName, int quantity){
+        StockItem theItem = stockList.getItem(itemName);
+
+        if (theItem == null) {
+            System.out.println("Sorry that item is not sold- " + itemName);
+            return 0;
+        }
+
+        if (stockList.sellStock(itemName, quantity) != 0) {
+            basket.addToBasket(theItem, quantity);
+            return quantity;
+        }
+
+        return 0; // stock insufficient
 
     }
 }

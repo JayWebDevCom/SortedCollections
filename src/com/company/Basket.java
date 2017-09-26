@@ -36,12 +36,13 @@ public class Basket {
         String string = "Basket " + this.name + " contains " + this.basket.size() + " items" + "\n";
         double totalCost = 0.0;
         for( Map.Entry<StockItem, Integer> entry : basket.entrySet() ){
+            int count = entry.getValue();
             StockItem item = entry.getKey();
             double price = item.getPrice();
-            string += "name: " + item.getName() + " price: " + price;
-            totalCost += price;
+            string += "name: " + item.getName() + " price: " + price + " purchased: " + count + "\n";
+            totalCost += price * count;
         }
 
-        return string + "\n" + "Total cost: " + totalCost;
+        return string + "Total cost: " + totalCost + "\n";
     }
 }
