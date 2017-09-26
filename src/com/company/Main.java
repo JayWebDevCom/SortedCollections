@@ -1,7 +1,5 @@
 package com.company;
 
-import com.sun.istack.internal.NotNull;
-
 public class Main {
 
     private static StockList stockList = new StockList();
@@ -50,7 +48,6 @@ public class Main {
         System.out.println(stockList);
         System.out.println();
 
-        //
         for (String s : stockList.getItems().keySet()){
             System.out.println(s);
         }
@@ -60,7 +57,11 @@ public class Main {
         System.out.println(basket);
         sellItem(basket, "car", 1);
         System.out.println(basket);
-        sellItem(basket, "car", 1);
+
+        if (sellItem(basket, "car", 1) != 1) {
+            System.out.println("\nThere are no more in stock\n");
+        }
+
         System.out.println(basket);
         sellItem(basket, "non-existant", 1);
         System.out.println(basket);

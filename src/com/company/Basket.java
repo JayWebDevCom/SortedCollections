@@ -3,8 +3,8 @@ package com.company;
 import com.sun.istack.internal.NotNull;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class Basket {
     private final String name;
@@ -12,7 +12,12 @@ public class Basket {
 
     public Basket(String name) {
         this.name = name;
-        this.basket = new HashMap<>();
+        // this.basket = new HashMap<>();
+
+        // basket will be in alphabetical order
+        // must constantly use compareTo
+        this.basket = new TreeMap<>(); // basket will be in alphabetical order
+
     }
 
     public int addToBasket(@NotNull StockItem item, @NotNull int quantity){
@@ -33,7 +38,8 @@ public class Basket {
 
     @Override
     public String toString() {
-        String string = "Basket " + this.name + " contains " + this.basket.size() + " items" + "\n";
+        String string = "Basket " + this.name + " contains " + this.basket.size()
+                + (basket.size() == 1 ? " item \n" : " items") + "\n";
         double totalCost = 0.0;
         for( Map.Entry<StockItem, Integer> entry : basket.entrySet() ){
             int count = entry.getValue();
