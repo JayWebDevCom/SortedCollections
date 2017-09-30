@@ -5,6 +5,7 @@ public class StockItem implements Comparable {
     private final String name;
     private double price;
     private int quantityStock = 0;
+    private int quantityReserved = 0;
 
     public StockItem(String name, double price) { // overloaded constructor
         this.name = name;
@@ -31,11 +32,47 @@ public class StockItem implements Comparable {
         }
     }
 
+    public int availableQuantity() {
+        return quantityStock - quantityReserved;
+    }
+
     public void adjustStock(int quantity){
         int newQuantity = this.quantityStock + quantity;
         if (newQuantity >= 0) {
             this.quantityStock = newQuantity;
         }
+    }
+
+    public int reserveStock(int quantity){
+
+        if ( quantity <= availableQuantity()){
+            quantityReserved += quantity;
+            return quantity;
+        }
+
+        System.out.println("Could not reserve " + this.getName());
+        return 0;
+    }
+
+    public int unreserveStock(int quantity) {
+
+        if ( quantity <= quantityReserved ){
+            quantityReserved -= quantity;
+            return quantity;
+        }
+
+        System.out.println("Could not unreserve " + this.getName());
+        return 0;
+    }
+
+    public int finalizeStock(int quantity) {
+        if(quantity <= quantityReserved){
+            quantityStock -= quantity;
+            quantityReserved -= quantity;
+            return quantity;
+        }
+        System.out.println("unable to finalize stock for " + quantity + " of " + this.getName());
+        return 0;
     }
 
     @Override
@@ -60,7 +97,7 @@ public class StockItem implements Comparable {
 
     @Override
     public int compareTo(Object o) {
-        System.out.println("Entering StockItem.compareTo");
+//        System.out.println("Entering StockItem.compareTo");
         if (this == o) {
             return 0;
         }
@@ -74,11 +111,20 @@ public class StockItem implements Comparable {
 
     @Override
     public String toString() {
-        return this.name + " " + this.price;
+        return this.name + " " + this.price + " reserved " + this.quantityReserved;
     }
 
     public int getQuantityInStock() {
         return quantityStock;
+    }
+
+    public void adjustReservedStock(int quantityInbasket) {
+        int reservedAfter = quantityReserved + quantityInbasket;
+
+        if (reservedAfter >= 0) {
+            quantityReserved += quantityInbasket;
+        }
+
     }
 
     public static class StaticClass {

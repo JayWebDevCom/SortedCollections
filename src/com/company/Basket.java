@@ -32,13 +32,34 @@ public class Basket {
 
     }
 
+    public int removeFromBasket(StockItem item, int quantity) {
+
+        if (item != null && quantity > 0) {
+            int quantityInBasket = basket.getOrDefault(item, 0);
+            int newQuantity = quantityInBasket - quantity;
+
+            if (newQuantity > 0) {
+                basket.put(item, newQuantity);
+                return quantity;
+            } else if (newQuantity == 0) {
+                basket.remove(item);
+                return quantity;
+            }
+        }
+        return 0;
+    }
+
+    public void clearBasket(){
+        this.basket.clear();
+    }
+
     public Map<StockItem, Integer> getBasket(){
         return Collections.unmodifiableMap(basket);
     }
 
     @Override
     public String toString() {
-        String string = "Basket " + this.name + " contains " + this.basket.size()
+        String string = "\nBasket " + this.name + " contains " + this.basket.size()
                 + (basket.size() == 1 ? " item \n" : " items") + "\n";
         double totalCost = 0.0;
         for( Map.Entry<StockItem, Integer> entry : basket.entrySet() ){
